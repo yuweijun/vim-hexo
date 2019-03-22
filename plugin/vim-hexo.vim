@@ -27,13 +27,15 @@ scriptencoding utf-8
 
 function! HexoHeader()
     let linenum = line(".")
-    call setline(linenum + 1, '---')
-    call setline(linenum + 2, 'layout: post')
-    call setline(linenum + 3, 'title: title')
-    call setline(linenum + 4, 'date: ' . strftime('%Y-%m-%d %H:%M:%S'))
-    call setline(linenum + 5, 'categories: linux')
-    call setline(linenum + 6, 'updated: ' . strftime('%Y-%m-%d %H:%M:%S'))
-    call setline(linenum + 7, '---')
+    let expr = []
+    let expr += ['---']
+    let expr += ['layout: post']
+    let expr += ['title: title']
+    let expr += ['date: ' . strftime('%Y-%m-%d %H:%M:%S')]
+    let expr += ['categories: linux']
+    let expr += ['updated: ' . strftime('%Y-%m-%d %H:%M:%S')]
+    let expr += ['---']
+    call append(linenum, expr)
     return ""
 endfunction
 
@@ -68,8 +70,7 @@ augroup END
 
 function! HexoCodeblock()
     let linenum = line(".")
-    call setline(linenum + 1, '{% codeblock lang:bash|java %}')
-    call setline(linenum + 2, '{% endcodeblock %}')
+    call append(linenum, ['{% codeblock lang:bash|java %}', '{% endcodeblock %}'])
     return ""
 endfunction
 
@@ -81,7 +82,7 @@ endfunction
 
 function! HexoImage()
     let linenum = line(".")
-    call setline(linenum + 1, '{% img image-md|image-lg|image-hg /img/path %}')
+    call append(linenum + 1, '{% img image-md|image-lg|image-hg /img/path %}')
 endfunction
 
 " ------------------------------------------------------------------------------
@@ -99,8 +100,7 @@ endfunction
 
 function! HexoBlockQuote()
     let linenum = line(".")
-    call setline(linenum + 1, '{% blockquote %}')
-    call setline(linenum + 2, '{% endblockquote %}')
+    call append(linenum, ['{% blockquote %}', '{% endblockquote %}'])
 endfunction
 
 " ------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ endfunction
 
 function! HexoIframe()
     let linenum = line(".")
-    call setline(linenum + 1, '{% iframe url [width] [height] %}')
+    call append(linenum1, '{% iframe url [width] [height] %}')
     return ""
 endfunction
 
@@ -123,7 +123,7 @@ endfunction
 
 function! HexoMore()
     let linenum = line(".")
-    call setline(linenum + 1, '<!-- more -->')
+    call append(linenum, '<!-- more -->')
 endfunction
 
 " ------------------------------------------------------------------------------
@@ -138,8 +138,7 @@ endfunction
 
 function! HexoRaw()
     let linenum = line(".")
-    call setline(linenum + 1, '{% raw %}')
-    call setline(linenum + 1, '{% endraw %}')
+    call append(linenum, ['{% raw %}' , '{% endraw %}'])
     return ""
 endfunction
 
@@ -153,7 +152,7 @@ endfunction
 
 function! HexoStyle()
     let linenum = line(".")
-    call setline(linenum + 1, '<style>th:nth-of-type(1) { width: 30%; }</style>')
+    call append(linenum, '<style>th:nth-of-type(1) { width: 30%; }</style>')
     return ""
 endfunction
 
@@ -161,15 +160,21 @@ endfunction
 " article references list
 " ------------------------------------------------------------------------------
 
-function! HexoReferences()
-    let linenum = line(".")
-    call setline(linenum + 1, 'References')
-    call setline(linenum + 2, '----------')
-    call setline(linenum + 3, '')
-    call setline(linenum + 4, '1. []()')
-    call setline(linenum + 5, '2. []()')
+function!  HexoReferences()
+    let linenum =  line(".")
+    let expr    =  []
+    let expr += ['References']
+    let expr += ['----------']
+    let expr += ['']
+    let expr += ['1. []()']
+    let expr += ['2. []()']
+    call append(linenum, expr)
     return ""
 endfunction
+
+" ------------------------------------------------------------------------------
+" nmap for vim-hexo
+" ------------------------------------------------------------------------------
 
 nmap <silent> <leader>hb :call HexoBlockQuote()<CR>
 nmap <silent> <leader>hc :call HexoCodeblock()<CR>
@@ -178,4 +183,5 @@ nmap <silent> <leader>hi :call HexoImage()<CR>
 nmap <silent> <leader>hm :call HexoMore()<CR>
 nmap <silent> <leader>hr :call HexoReferences()<CR>
 nmap <silent> <leader>hs :call HexoStyle()<CR>
+nmap <silent> <leader>hw :call HexoRaw()<CR>
 
