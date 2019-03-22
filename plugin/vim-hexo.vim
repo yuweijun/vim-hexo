@@ -9,7 +9,8 @@ if exists("g:vim_hexo")
     finish
 endif
 
-" let g:vim_hexo = 1
+let g:vim_hexo = 1
+
 scriptencoding utf-8
 
 " ------------------------------------------------------------------------------
