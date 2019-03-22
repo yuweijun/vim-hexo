@@ -34,6 +34,7 @@ function! HexoHeader()
     call setline(linenum + 5, 'categories: linux')
     call setline(linenum + 6, 'updated: ' . strftime('%Y-%m-%d %H:%M:%S'))
     call setline(linenum + 7, '---')
+    return ""
 endfunction
 
 function! HexoPostUpdated()
@@ -69,6 +70,7 @@ function! HexoCodeblock()
     let linenum = line(".")
     call setline(linenum + 1, '{% codeblock lang:bash|java %}')
     call setline(linenum + 2, '{% endcodeblock %}')
+    return ""
 endfunction
 
 " ------------------------------------------------------------------------------
@@ -110,6 +112,7 @@ endfunction
 function! HexoIframe()
     let linenum = line(".")
     call setline(linenum + 1, '{% iframe url [width] [height] %}')
+    return ""
 endfunction
 
 " ------------------------------------------------------------------------------
@@ -133,10 +136,11 @@ endfunction
 " {% endraw %}
 " ------------------------------------------------------------------------------
 
-function! HexoMore()
+function! HexoRaw()
     let linenum = line(".")
     call setline(linenum + 1, '{% raw %}')
     call setline(linenum + 1, '{% endraw %}')
+    return ""
 endfunction
 
 " ------------------------------------------------------------------------------
@@ -150,6 +154,7 @@ endfunction
 function! HexoStyle()
     let linenum = line(".")
     call setline(linenum + 1, '<style>th:nth-of-type(1) { width: 30%; }</style>')
+    return ""
 endfunction
 
 " ------------------------------------------------------------------------------
@@ -162,4 +167,15 @@ function! HexoReferences()
     call setline(linenum + 2, '----------')
     call setline(linenum + 3, '')
     call setline(linenum + 4, '1. []()')
+    call setline(linenum + 5, '2. []()')
+    return ""
 endfunction
+
+nmap <silent> <leader>hb :call HexoBlockQuote()<CR>
+nmap <silent> <leader>hc :call HexoCodeblock()<CR>
+nmap <silent> <leader>hh :call HexoHeader()<CR>
+nmap <silent> <leader>hi :call HexoImage()<CR>
+nmap <silent> <leader>hm :call HexoMore()<CR>
+nmap <silent> <leader>hr :call HexoReferences()<CR>
+nmap <silent> <leader>hs :call HexoStyle()<CR>
+
