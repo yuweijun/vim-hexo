@@ -71,7 +71,7 @@ augroup END
 
 function! HexoCodeblock()
     let linenum = line(".")
-    call append(linenum, ['{% codeblock lang:bash|java %}', '{% endcodeblock %}'])
+    call append(linenum, ['{% codeblock lang:bash %}', '{% endcodeblock %}'])
     return ""
 endfunction
 
@@ -83,7 +83,7 @@ endfunction
 
 function! HexoImage()
     let linenum = line(".")
-    call append(linenum + 1, '{% img image-md|image-lg|image-hg /img/path %}')
+    call append(linenum + 1, '{% img image-md|image-lg|image-hg /img/path [alt] %}')
 endfunction
 
 " ------------------------------------------------------------------------------
