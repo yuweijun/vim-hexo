@@ -83,7 +83,7 @@ endfunction
 
 function! HexoImage()
     let linenum = line(".")
-    call append(linenum + 1, '{% img image-md|image-lg|image-hg /img/path [alt] %}')
+    call append(linenum, '{% img image-md|image-lg|image-hg /img/path [alt] %}')
 endfunction
 
 " ------------------------------------------------------------------------------
